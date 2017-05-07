@@ -3,6 +3,7 @@ import pytest
 from pinkerton.utils import (
     remove_unnecessary_chars,
     tokenize,
+    normalize,
 )
 
 
@@ -18,7 +19,19 @@ def test_remove_unnecessary_chars(person_entity):
 def test_tokenize():
     assert tokenize('Петр родился в 1470 году') == [
         'петр',
-        'родился',
+        'родиться',
         '1470',
-        'году',
+        'год',
+    ]
+
+
+def test_normalize():
+    tokens = tokenize('пётр первый вступил на престол в раннем возрасте')
+    assert list(normalize(tokens)) == [
+        'пётр',
+        'один',
+        'вступить',
+        'престол',
+        'раннии',
+        'возраст',
     ]
