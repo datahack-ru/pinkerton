@@ -13,3 +13,29 @@ Smartnotes связывает именованные сущности, упом�
 - [x] Поиск данных в Wikipedia
 - [ ] Поиск адресов в DaData.ru / Yandex Maps / Google Maps
 - [ ] Сравнение контекстов через LDA/TF-IDF
+
+# Быстрый старт:
+
+```bash
+$ pip install smartnotes
+$ python -m smartnotes
+======== Running on http://127.0.0.1:4000 ========
+(Press CTRL+C to quit)
+```
+
+# Спецификация API
+
+## Общая информация: `/version`
+
+```bash
+$ http http://localhost:4000/version
+HTTP/1.1 200 OK
+Content-Length: 20
+Content-Type: application/json; charset=utf-8
+Date: Sun, 07 May 2017 09:49:29 GMT
+Server: Python/3.6 aiohttp/2.0.7
+
+{
+    "version": "0.0.1"
+}
+```
