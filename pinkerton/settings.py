@@ -1,6 +1,6 @@
-PROJECT_NAME = 'smartnotes'
-PROJECT_NAME_CAPITALIZED = 'SmartNotes'
-PROJECT_SHORT_DESCRIPTION = 'Natural language text annotation service'
+PROJECT_NAME = 'pinkerton'
+PROJECT_NAME_CAPITALIZED = 'Pinkerton'
+PROJECT_SHORT_DESCRIPTION = 'Named entity linking and disambiguation service for russian language'
 PROJECT_VERSION = '0.0.1'
 
 BIND_HOST = '127.0.0.1'

@@ -1,8 +1,8 @@
 import pytest
 
-from smartnotes.base import Entity, EntityType
-from smartnotes.providers.wikipedia import WikipediaProvider
-from smartnotes.providers.yandex_maps import YandexMapsProvider
+from pinkerton.base import Entity, EntityType
+from pinkerton.providers.wikipedia import WikipediaProvider
+from pinkerton.providers.yandex_maps import YandexMapsProvider
 
 
 @pytest.fixture

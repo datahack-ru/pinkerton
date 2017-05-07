@@ -1,6 +1,6 @@
 import pytest
 
-from smartnotes.utils import (
+from pinkerton.utils import (
     remove_unnecessary_chars,
     tokenize,
 )

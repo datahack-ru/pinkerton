@@ -1,6 +1,6 @@
 from aiohttp import web
 
-from smartnotes.settings import PROJECT_VERSION
+from pinkerton.settings import PROJECT_VERSION
 
 
 async def version(request):

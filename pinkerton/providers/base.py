@@ -1,5 +1,5 @@
 from aiohttp import ClientSession
-from smartnotes.settings import DATA_PROVIDER_CLIENT_HEADERS
+from pinkerton.settings import DATA_PROVIDER_CLIENT_HEADERS
 
 
 class BaseDataProvider:

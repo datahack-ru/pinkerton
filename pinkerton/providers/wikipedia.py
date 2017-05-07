@@ -1,5 +1,5 @@
-from smartnotes.base import EntityType
-from smartnotes.providers.base import BaseDataProvider
+from pinkerton.base import EntityType
+from pinkerton.providers.base import BaseDataProvider
 
 
 class WikipediaProvider(BaseDataProvider):

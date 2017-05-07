@@ -1,5 +1,5 @@
 from aiohttp import web
-from smartnotes import views
+from pinkerton import views
 
 
 app = web.Application()
