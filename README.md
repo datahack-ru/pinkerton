@@ -1,10 +1,10 @@
-# Smartnotes - named entity linking for russian language
+# Smartnotes - named entity linking and disambiguation service for russian language [![Build Status](https://travis-ci.org/bureaucratic-labs/smartnotes.svg?branch=master)](https://travis-ci.org/bureaucratic-labs/smartnotes)
 
 Smartnotes связывает именованные сущности, упоминаемые в тексте на естественном языке, с данными в внешних хранилищах данных (например, Wikipedia, DaData.ru и др.).
 
 При разборе результатов, Smartnotes определяет контекст, в котом упоминается сущность и выбирает наиболее подходящий вариант ответа - так, например, можно быть уверенным, что для персоны `Иван Васильевич`, которая упоминается в контексте художественного фильма, будет выбрана правильная статья из Wikipedia. 
 
-Общая цель этого проекта - сделать открытое и расширяемое решение для замены [Яндекс.Карточки](https://yandex.ru/promo/yobject/)
+Общая цель этого проекта - сделать открытую и расширяемую альтернативу [Яндекс.Карточкам](https://yandex.ru/promo/yobject/)
 
 # TODO:
 
@@ -25,7 +25,7 @@ $ python -m smartnotes
 (Press CTRL+C to quit)
 ```
 
-# Спецификация API
+# API
 
 ## Общая информация: `/version`
 
