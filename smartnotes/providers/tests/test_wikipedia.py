@@ -33,7 +33,15 @@ async def test_query_org(wiki_provider):
     } in results
 
 
-@pytest.mark.async
+@pytest.mark.asyncio
 async def test_query_with_limit(wiki_provider):
-    results = await wiki_provider.search(entity='петр 1')
-    raise ValueError(results)
+    results = await wiki_provider.search(entity='пётр 1', limit=1)
+    assert results == [
+        {
+            'context': 'Пётр I Алексе́евич, прозванный Вели́кий (30 мая [9 июня] 1672 '
+            'год — 28 января [8 февраля] 1725 год) — последний царь всея Руси '
+            '(с 1682 года) и первый Император Всероссийский (с 1721 года).',
+            'resource': 'https://ru.wikipedia.org/wiki/%D0%9F%D1%91%D1%82%D1%80_I',
+            'title': 'Пётр I',
+        }
+    ]
