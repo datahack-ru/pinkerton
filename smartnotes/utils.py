@@ -1,7 +1,7 @@
 import unicodedata
 
 
-def remove_uneccesary_chars(string):
+def remove_unnecessary_chars(string):
     '''
     Removes some characters, like diacritycs
     '''
