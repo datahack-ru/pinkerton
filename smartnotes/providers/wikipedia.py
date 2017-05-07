@@ -1,22 +1,29 @@
 from aiohttp import ClientSession
 
+from smartnotes.base import EntityType
 from smartnotes.settings import DATA_PROVIDER_CLIENT_USER_AGENT
 from smartnotes.providers.base import BaseDataProvider
 
 
 class WikipediaProvider(BaseDataProvider):
 
+    ALLOWED_ENTITY_TYPES = [
+        EntityType.Person,
+        EntityType.Location,
+        EntityType.Organisation,
+    ]
+
     def __init__(self, language='ru'):
         self.api_base_url = f'https://{language}.wikipedia.org/w/api.php'
 
-    async def search(self, entity: str, limit=100) -> list:
+    async def search(self, query: str, limit=100) -> list:
 
         params = {
             'utf8': 'true',
             'format': 'json',
             'action': 'opensearch',
             'limit': limit,
-            'search': entity,
+            'search': query,
         }
 
         async with ClientSession(headers={

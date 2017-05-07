@@ -1,6 +1,7 @@
 import pytest
 
 
+from smartnotes.base import Entity, EntityType
 from smartnotes.providers.wikipedia import WikipediaProvider
 
 
@@ -9,9 +10,26 @@ def wiki_provider():
     return WikipediaProvider()
 
 
+@pytest.fixture
+def address_entity():
+    return Entity(EntityType.Address, 'цветочная 21', {
+        'house': 21,
+        'street': 'цветочная',
+        'street_descriptor': 'улица',
+    })
+
+
+@pytest.fixture
+def person_entity():
+    return Entity(EntityType.Person, 'василий иванович', {
+        'firstname': 'василий',
+        'middlename': 'иванович',
+    })
+
+
 @pytest.mark.asyncio
 async def test_query_person(wiki_provider):
-    results = await wiki_provider.search(entity='пётр 1')
+    results = await wiki_provider.search(query='пётр 1')
     assert {
         'context': 'Пётр I Алексе́евич, прозванный Вели́кий (30 мая [9 июня] '
         '1672 год — 28 января [8 февраля] 1725 год) — последний царь '
@@ -24,7 +42,7 @@ async def test_query_person(wiki_provider):
 
 @pytest.mark.asyncio
 async def test_query_org(wiki_provider):
-    results = await wiki_provider.search(entity='петропавловская крепость')
+    results = await wiki_provider.search(query='петропавловская крепость')
     assert {
         'context': 'Петропа́вловская кре́пость — крепость в Санкт-Петербурге, '
         'расположенная на Заячьем острове, историческое ядро города.',
@@ -35,7 +53,7 @@ async def test_query_org(wiki_provider):
 
 @pytest.mark.asyncio
 async def test_query_with_limit(wiki_provider):
-    results = await wiki_provider.search(entity='пётр 1', limit=1)
+    results = await wiki_provider.search(query='пётр 1', limit=1)
     assert results == [
         {
             'context': 'Пётр I Алексе́евич, прозванный Вели́кий (30 мая [9 июня] 1672 '
@@ -45,3 +63,11 @@ async def test_query_with_limit(wiki_provider):
             'title': 'Пётр I',
         }
     ]
+
+
+def test_not_accepts_method(wiki_provider, address_entity):
+    assert not wiki_provider.accepts(address_entity)
+
+
+def test_accepts_method(wiki_provider, person_entity):
+    assert wiki_provider.accepts(person_entity)
