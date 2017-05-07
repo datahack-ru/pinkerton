@@ -1,7 +1,4 @@
-from aiohttp import ClientSession
-
 from smartnotes.base import EntityType
-from smartnotes.settings import DATA_PROVIDER_CLIENT_USER_AGENT
 from smartnotes.providers.base import BaseDataProvider
 
 
@@ -26,9 +23,7 @@ class WikipediaProvider(BaseDataProvider):
             'search': query,
         }
 
-        async with ClientSession(headers={
-            'User-Agent': DATA_PROVIDER_CLIENT_USER_AGENT,
-        }) as session:
+        async with self.session as session:
             async with session.get(
                 self.api_base_url, params=params
             ) as response:
@@ -37,6 +32,6 @@ class WikipediaProvider(BaseDataProvider):
                     {
                         'title': t,
                         'context': d,
-                        'resource': l,
+                        'source': l,
                     } for (t, d, l) in zip(titles, descriptions, links)
                 ]

@@ -1,6 +1,14 @@
+from aiohttp import ClientSession
+from smartnotes.settings import DATA_PROVIDER_CLIENT_HEADERS
+
+
 class BaseDataProvider:
 
     ALLOWED_ENTITY_TYPES = []
+
+    @property
+    def session(self):
+        return ClientSession(headers=DATA_PROVIDER_CLIENT_HEADERS)
 
     async def search(self, query: str) -> list:
         '''

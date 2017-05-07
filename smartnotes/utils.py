@@ -14,4 +14,7 @@ def tokenize(text):
     '''
     Simple tokenizer that extracts only words and numbers (of length 3 and more) from given text
     '''
+    text = remove_unnecessary_chars(
+        text.lower()
+    )
     return [match.group(0) for match in re.finditer(r'\w{3,}', text)]
