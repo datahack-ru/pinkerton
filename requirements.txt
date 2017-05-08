@@ -1,4 +1,6 @@
 aiohttp==2.0.7
 pymorphy2[fast]==0.8
+gensim==2.0.0
+regex>=2017.4.29
 pytest==3.0.7
 pytest-asyncio==0.5.0

@@ -3,7 +3,9 @@ from setuptools import setup, find_packages
 
 REQUIREMENTS = [
     'aiohttp==2.0.7',
-    'pymorphy2[fast]==0.8'
+    'pymorphy2[fast]==0.8',
+    'gensim==2.0.0',
+    'regex>=2017.4.29',
 ]
 
 setup(
