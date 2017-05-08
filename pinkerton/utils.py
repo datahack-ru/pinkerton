@@ -1,4 +1,4 @@
-import re
+import regex as re
 import pymorphy2
 import unicodedata
 
@@ -8,10 +8,13 @@ morph = pymorphy2.MorphAnalyzer()
 
 def remove_unnecessary_chars(string):
     '''
-    Removes some characters, like diacritycs
+    Removes some characters, like accent diacritics
     '''
-    nfkd_form = unicodedata.normalize('NFKD', string)
-    return ''.join(c for c in nfkd_form if not unicodedata.combining(c))
+    source = unicodedata.normalize('NFD', string)
+    result = ''.join(
+        c for c in source if c not in {'´', '́'}
+    )
+    return unicodedata.normalize('NFC', result)
 
 
 def normalize(tokens, analyzer=morph):
@@ -30,9 +33,12 @@ def tokenize(text):
     '''
     Simple tokenizer that extracts only words and numbers (of length 3 and more) from given text
     '''
-    tokens = normalize(
-        match.group(0) for match in re.finditer(r'\w{3,}', text)
+    tokens = (
+        match.group(0) for match in re.finditer(r'\w{3,}', text, re.UNICODE)
     )
-    return [
+    tokens = (
         remove_unnecessary_chars(token.lower()) for token in tokens
-    ]
+    )
+    return list(
+        normalize(tokens)
+    )

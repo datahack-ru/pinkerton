@@ -13,12 +13,12 @@ def person_entity():
 
 
 def test_remove_unnecessary_chars(person_entity):
-    assert remove_unnecessary_chars(person_entity) == 'петр первыи'
+    assert remove_unnecessary_chars(person_entity) == 'пётр первый'
 
 
 def test_tokenize():
     assert tokenize('Петр родился в 1470 году') == [
-        'петр',
+        'пётр',
         'родиться',
         '1470',
         'год',
@@ -32,6 +32,6 @@ def test_normalize():
         'один',
         'вступить',
         'престол',
-        'раннии',
+        'ранний',
         'возраст',
     ]
