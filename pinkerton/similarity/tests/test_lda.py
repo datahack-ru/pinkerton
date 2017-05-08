@@ -23,7 +23,7 @@ def person_context():
 
 @pytest.fixture
 def address_context():
-    return 'Встретимся в Санкт-Петербурге, на цветочной улице, 21'
+    return 'Приезжаю в Россию в пятницу, встретимся в Санкт-Петербурге, на цветочной улице, 21'
 
 
 @pytest.fixture
@@ -57,12 +57,11 @@ async def test_lda_score_for_person_entities(
 ):
     async for entities in person_search_results:
         if entities:
-            queries = [
-                e['context'] for e in entities if e['context']
-            ]
-            scores = lda_comparator.score(queries, person_context)
-            correct_query_score = scores[0]
-            assert all(correct_query_score >= q for q in scores[1:])
+            scores = lda_comparator.score(entities, person_context)
+            correct_query = entities[0]
+            correct_query_score = scores[0][1]
+            assert correct_query['title'] == 'Иван Грозный'
+            assert round(correct_query_score) >= 0.87
 
 
 @pytest.mark.asyncio
@@ -73,11 +72,8 @@ async def test_lda_score_for_address_entities(
 ):
     async for entities in address_search_results:
         if entities:
-            queries = [
-                e['context'] for e in entities if e['context']
-            ]
-            scores = lda_comparator.score(queries, address_context)
-            correct_query = queries[0]
-            correct_query_score = scores[0]
-            assert correct_query == 'Санкт-Петербург, Россия'
+            scores = lda_comparator.score(entities, address_context)
+            correct_query = entities[0]
+            correct_query_score = scores[0][1]
+            assert correct_query['context'] == 'Санкт-Петербург, Россия'
             assert round(correct_query_score) >= 0.67

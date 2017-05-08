@@ -13,7 +13,11 @@ class LDASimilarity(BaseSimilarityComparator):
             'num_topics': 100,
         }
 
-    def score(self, queries: list, context: str) -> list:
+    def score(self, entities: list, context: str) -> list:
+
+        queries = [
+            (i, q['context']) for i, q in enumerate(entities) if q['context']
+        ]
 
         context = tokenize(context)
 
@@ -22,13 +26,22 @@ class LDASimilarity(BaseSimilarityComparator):
         vectors = [
             dictionary.doc2bow(
                 tokenize(q)
-            ) for q in queries
+            ) for _, q in queries
         ]
 
         model = LdaModel(id2word=dictionary, **self.model_kwargs)
 
-        scores = [
-            model[vec][-1][1] for vec in vectors if model[vec]
-        ]
+        ents = (
+            entities[i] for i, _ in queries
+        )
 
-        return scores
+        scores = (
+            model[vec][-1][1] for vec in vectors if model[vec]
+        )
+
+        results = zip(ents, scores)
+
+        def sort_by_score(item):
+            return item[1]
+
+        return sorted(results, key=sort_by_score, reverse=True)

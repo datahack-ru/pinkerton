@@ -1,7 +1,7 @@
 class BaseSimilarityComparator:
 
-    def score(self, queries: list, context: str) -> list:
+    def score(self, entities: list, context: str) -> list:
         '''
-        Returns list with queries sorted by similarity score
+        Returns list with entities sorted by similarity score
         '''
         raise NotImplementedError
