@@ -9,8 +9,8 @@ class LDASimilarity(BaseSimilarityComparator):
 
     def __init__(self, **kwargs):
         self.model_kwargs = kwargs or {
-            'passes': 100,
-            'num_topics': 25,
+            'passes': 20,
+            'num_topics': 100,
         }
 
     def score(self, entities: list, context: str) -> list:

@@ -50,7 +50,7 @@ async def person_search_results(wiki_provider):
 @pytest.mark.asyncio
 async def address_search_results(ya_maps_provider):
     for e in [
-        'улица цветочная 21',
+        'рубинштейна 21',
     ]:
         yield (await ya_maps_provider.search(query=e))
 
@@ -81,6 +81,9 @@ async def test_lda_score_for_person_entities(
             correct_query = entities[0]
             correct_query_score = scores[0][1]
             assert correct_query['title'] == 'Иван Грозный'
+            assert correct_query['context'].startswith(
+                'Ива́н IV Васи́льевич, прозванный Гро́зным'
+            )
             assert round(correct_query_score) >= 0.87
 
 
@@ -93,10 +96,9 @@ async def test_lda_score_for_address_entities(
     async for entities in address_search_results:
         if entities:
             scores = lda_comparator.score(entities, address_context)
-            correct_query = entities[0]
-            correct_query_score = scores[0][1]
-            assert correct_query['context'] == 'Санкт-Петербург, Россия'
-            assert round(correct_query_score) >= 0.67
+            first_result, second_result = scores[0:2]
+            assert first_result[0]['title'] == 'Россия, Санкт-Петербург, улица Рубинштейна, 21'
+            assert first_result[1] > second_result[1]
 
 
 @pytest.mark.asyncio
@@ -111,8 +113,7 @@ async def test_lda_score_for_organisation_entities(
             top_3_titles = [s[0]['title'] for s in scores[:3]]
 
             assert len(scores) > 3
-            assert set(top_3_titles) == {
+            assert set(top_3_titles) & {
                 'Министерство обороны Украины',
-                'Министерство обороны Афганистана',
                 'Министерство обороны Российской Федерации',
             }
