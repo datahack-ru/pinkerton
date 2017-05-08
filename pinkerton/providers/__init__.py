@@ -1,0 +1,2 @@
+from pinkerton.providers.wikipedia import WikipediaProvider
+from pinkerton.providers.yandex_maps import YandexMapsProvider

@@ -19,6 +19,7 @@ class WikipediaProvider(BaseDataProvider):
             'utf8': 'true',
             'format': 'json',
             'action': 'opensearch',
+            'redirects': 'resolve',
             'limit': limit,
             'search': query,
         }
