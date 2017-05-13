@@ -26,7 +26,11 @@ class EntityExtractor:
     def session(self):
         return ClientSession(headers=DATA_PROVIDER_CLIENT_HEADERS)
 
-    async def extract(self, text: str) -> dict:
+    async def extract(self, text: str) -> (list, list):
+        '''
+        Returns two lists: with extracted objects (\w solved coreference)
+        and a list with extracted spans (with raw morphological info)
+        '''
         async with self.session as session:
             async with session.post(self.api_extract_url, data={
                 'text': text,
