@@ -24,7 +24,8 @@ def test_correct_api_urls(extractor):
 async def test_that_api_returns_some_results(extractor, test_text):
     objects, spans = await extractor.extract(test_text)
 
-    assert objects, spans
+    assert objects
+    assert spans
 
     assert objects[0]['type'] == EntityType.Person
     assert objects[0]['fields']['firstname'] == 'Иван'
