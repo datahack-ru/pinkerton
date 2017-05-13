@@ -15,7 +15,7 @@ def test_text():
     Ивана Васильевича Иванова, или просто Ваню, застал в расплох Алексей Петрович
     '''
 
-def test_corrent_api_urls(extractor):
+def test_correct_api_urls(extractor):
     assert extractor.api_extract_url == 'https://natasha.b-labs.pro/api/extract'
     assert extractor.api_version_url == 'https://natasha.b-labs.pro/api/version'
 
